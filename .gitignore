@@ -3,3 +3,5 @@
 *.synctex.gz
 *.out
 .idea
+.DS_Store
+*/.DS_Store
