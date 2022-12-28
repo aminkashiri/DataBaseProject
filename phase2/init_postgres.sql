@@ -40,8 +40,8 @@ CREATE TABLE survey
 (
     s_id       INT,
     m_username VARCHAR(50),
-    start      TIMESTAMP,
-    end        TIMESTAMP,
+    start_time      TIMESTAMP,
+    end_time        TIMESTAMP,
     CONSTRAINT pk_s_id
         PRIMARY KEY (s_id),
     CONSTRAINT fk_m_username
