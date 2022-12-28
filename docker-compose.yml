@@ -4,9 +4,9 @@ volumes:
   postgresql_data:
 
 services:
-  test-db:
+  db-project:
     restart: unless-stopped
-    # container_name: db-project
+    container_name: db-project-container
     image: postgres:12.2-alpine #postgres:alpine3.16
     environment:
       - POSTGRES_USER=${DB_POSTGRESQL_USER}
@@ -15,6 +15,6 @@ services:
     command: [ "postgres", "-c", "log_statement=all" ]
     volumes:
       - postgresql_data:/var/lib/postgresql/data:z # :z means this volume is shared between containers
-      # - ./.build/init_postgres.sql:/docker-entrypoint-initdb.d/init.sql # For initial data
+      - ./phase2/init_postgres.sql:/docker-entrypoint-initdb.d/init.sql # For initial data
     ports:
       - ${DB_POSTGRESQL_PORT}:5432
