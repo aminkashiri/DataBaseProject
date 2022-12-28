@@ -115,9 +115,9 @@ CREATE TABLE complete
     s_id          INT,
     time          TIMESTAMP,
     CONSTRAINT pk_ticket_number_s_id
-        PRIMARY KEY (ticket_number, s_id)
-            CONSTRAINT fk_ticket_number
-            FOREIGN KEY (ticket_number)
+        PRIMARY KEY (ticket_number, s_id),
+    CONSTRAINT fk_ticket_number
+        FOREIGN KEY (ticket_number)
             REFERENCES ticket (ticket_number)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
