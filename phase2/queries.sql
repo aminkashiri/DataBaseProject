@@ -63,5 +63,13 @@ FROM question AS q,
 WHERE q.id = v.question_id;
 
 -- Query-6
+SELECT airline.name, COUNT(complete.ticket_number) AS cnt
+FROM airline
+         INNER JOIN manager ON airline.name = manager.airline_name
+         INNER JOIN survey ON manager.username = survey.manager_username
+         INNER JOIN complete ON survey.id = complete.survey_id
+GROUP BY airline.name
+ORDER BY cnt
+        DESC;
 
 -- Query-7
