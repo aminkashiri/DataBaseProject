@@ -87,3 +87,21 @@ ORDER BY cnt
         DESC;
 
 -- Query-7
+WITH top_travellers AS
+         (SELECT ticket.passport_number AS pass_num, COUNT(ticket.ticket_number) AS cnt
+          FROM question
+                   INNER JOIN survey ON question.survey_id = survey.id
+                   INNER JOIN manager ON survey.manager_username = manager.username
+                   INNER JOIN answers ON question.id = answers.question_id
+                   INNER JOIN ticket ON answers.ticket_number = ticket.ticket_number
+          WHERE question.id = question_id
+            AND ticket.date > now() - interval '30 day'
+            AND ticket.date < now()
+          GROUP BY ticket.passport_number
+          HAVING cnt >= 3)
+SELECT answers.value
+FROM top_travellers
+         INNER JOIN ticket ON top_travellers.pass_num = ticket.passport_number
+         INNER JOIN answers ON ticket.ticket_number = answers.ticket_number
+WHERE answers.question_id = question_id
+ORDER BY random();
