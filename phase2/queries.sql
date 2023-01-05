@@ -12,7 +12,19 @@ WHERE ticket.ticket_number = ticket_num
   AND now() > survey.start_time
   AND now() < survey.end_time
   AND question.class = ticket.class
-ORDER BY ticket.ticket_number;
+EXCEPT
+SELECT ticket.ticket_number, question.text AS question_text, choice.text AS choice_text
+FROM ticket
+         INNER JOIN flight ON ticket.flight_number = flight.flight_number
+         INNER JOIN airline ON flight.airline_name = airline.name
+         INNER JOIN manager ON airline.name = manager.airline_name
+         INNER JOIN survey ON manager.username = survey.manager_username
+         INNER JOIN question ON survey.id = question.survey_id
+         FULL OUTER JOIN choice ON question.id = choice.question_id
+         INNER JOIN validates ON question.id = validates.question_id
+         INNER JOIN answers ON question.id = answers.question_id
+WHERE ticket.ticket_number = ticket_num
+  AND answers.ticket_number = ticket_num;
 
 -- Query-2
 
