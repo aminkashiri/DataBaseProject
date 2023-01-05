@@ -27,8 +27,29 @@ WHERE ticket.ticket_number = ticket_num
   AND answers.ticket_number = ticket_num;
 
 -- Query-2
+SELECT answers.question_id, COUNT(answers.question_id)
+FROM answers
+         INNER JOIN choice ON answers.question_id = choice.question_id
+         INNER JOIN question ON answers.question_id = question.id
+         INNER JOIN survey ON answers.survey_id = survey.id
+         INNER JOIN manager ON survey.manager_username = manager.username
+         INNER JOIN complete ON survey.id = complete.survey_id
+WHERE manager.username = manager_username
+  AND question.type = 'MULTIPLE_CHOICE'
+  AND answers.value = question.text
+  AND from_time < complete.time
+  AND to_time > complete.time
+GROUP BY answers.question_id;
 
 -- Query-3
+SELECT answers.ticket_number, answers.question_id, answers.value
+FROM answers
+         INNER JOIN question ON answers.question_id = question.id
+         INNER JOIN survey ON answers.survey_id = survey.id
+         INNER JOIN manager ON survey.manager_username = manager.username
+WHERE question.type = 'DESCRIPTIVE'
+  AND manager.username = manager_username
+  AND answers.value LIKE '%keyword';
 
 -- Query-4
 
