@@ -52,6 +52,20 @@ WHERE question.type = 'DESCRIPTIVE'
   AND answers.value LIKE '%keyword';
 
 -- Query-4
+WITH answers_count AS
+         (SELECT question.id AS qid, COUNT(question.id) AS cnt
+          FROM manager
+                   INNER JOIN survey ON manager.username = survey.manager_username
+                   INNER JOIN question ON survey.id = question.survey_id
+                   INNER JOIN answers ON question.id = answers.question_id
+          WHERE manager.username = manager_username
+          GROUP BY question.id)
+SELECT question.type, AVG(answers_count.cnt) as type_avg
+FROM answers_count
+         INNER JOIN question ON answers_count.qid = question.id
+GROUP BY question.type
+ORDER BY type_avg
+        DESC;
 
 -- Query-5
 SELECT q.id, q.text
