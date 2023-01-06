@@ -28,6 +28,12 @@ def get_answers_like(manager_username, keyword):
     query_executor.execute_and_commit(query)
     print("\n".join(str(x) for x in query_executor.fetchall()))
 
+def get_mean_of_each_class(manager_username):
+    print("----------------------------- running query 4")
+    query = queries[3].format(manager_username=manager_username)
+    print(query)
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
 
 if __name__ == "__main__":
     query_executor = QueryExecutor()
@@ -40,3 +46,5 @@ if __name__ == "__main__":
     )
 
     get_answers_like("'iran-air-mng'", "Pi")
+
+    get_mean_of_each_class("'iran-air-mng'")
