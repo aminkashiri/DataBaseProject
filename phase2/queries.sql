@@ -27,7 +27,6 @@ FROM manager
         INNER JOIN survey on manager.username = survey.manager_username
         INNER JOIN question ON survey.id = question.survey_id
         INNER JOIN answers on question.id = answers.question_id
-        -- INNER JOIN complete ON answers.ticket_number = complete.ticket_number
 WHERE manager.username = {manager_username}
   AND question.type = 'MULTIPLE_CHOICE'
   AND (survey.id, answers.ticket_number) in (
@@ -42,13 +41,13 @@ GROUP BY question.text, answers.value;
 
 -- Query-3
 SELECT answers.ticket_number, answers.question_id, answers.value
-FROM answers
-         INNER JOIN question ON answers.question_id = question.id
-         INNER JOIN survey ON answers.survey_id = survey.id
-         INNER JOIN manager ON survey.manager_username = manager.username
+FROM manager
+        INNER JOIN survey on manager.username = survey.manager_username
+        INNER JOIN question ON survey.id = question.survey_id
+        INNER JOIN answers on question.id = answers.question_id
 WHERE question.type = 'DESCRIPTIVE'
-  AND manager.username = manager_username
-  AND answers.value LIKE '%keyword';
+  AND manager.username = {manager_username}
+  AND answers.value LIKE '%{keyword}%';
 
 -- Query-4
 WITH answers_count AS

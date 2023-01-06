@@ -21,6 +21,14 @@ def get_choice_counts(manager_username, from_time, to_time):
     print("\n".join(str(x) for x in query_executor.fetchall()))
 
 
+def get_answers_like(manager_username, keyword):
+    print("----------------------------- running query 3")
+    query = queries[2].format(manager_username=manager_username, keyword=keyword)
+    print(query)
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
+
+
 if __name__ == "__main__":
     query_executor = QueryExecutor()
     get_all_questions(3, None)
@@ -30,3 +38,5 @@ if __name__ == "__main__":
         "to_timestamp('21 Dec 2020', 'DD Mon YYYY')",
         "to_timestamp('21 Dec 2030', 'DD Mon YYYY')",
     )
+
+    get_answers_like("'iran-air-mng'", "Pi")
