@@ -411,12 +411,12 @@ VALUES (1, 1, now()),
        (2, 1, now()),
        (3, 1, to_timestamp('10 Dec 2022', 'DD Mon YYYY')),
        (4, 1, now()),
-       (5, 2, now()),
-       (6, 2, now()),
-       (7, 3, now()),
-       (8, 3, now()),
-       (9, 3, now()),
-       (10, 3, now());
+    --    (4, 1, now()),
+    --    (5, 2, now()),
+    --    (6, 2, now()),
+       (1, 3, now()),
+       (2, 3, now()),
+       (4, 3, now());
 
 INSERT INTO question (id, survey_id, text, class, is_mandatory, type)
 VALUES (1, 1, 'Please describe your experience with us.', 'ECONOMY', true, 'DESCRIPTIVE'),
@@ -429,14 +429,18 @@ VALUES (1, 1, 'Please describe your experience with us.', 'ECONOMY', true, 'DESC
        (8, 4, 'Will you be flying with us again?', 'BUSINESS', true, 'MULTIPLE_CHOICE'),
        (9, 3, 'Rate the food', 'BUSINESS', true, 'MULTIPLE_CHOICE');
 
-INSERT INTO answers (ticket_number, question_id, "value")
+INSERT INTO answers (question_id, ticket_number, "value")
 VALUES (1, 1, 'Excellent'),
-       (1, 3, '10'),
-       (1, 2, 'Pizza'),
-       (2, 1, 'Excellent'),
-       (2, 3, '10'),
-       (2, 2, 'Pizza');
-    --    (3, 9, 'BAD');
+       (1, 2, 'Excellent'),
+       (2, 1, 'Pizza'),
+       (2, 2, 'Pizza'),
+       (3, 2, '10'),
+       (3, 1, '10'),
+       (3, 4, '9'),
+    --    (9, 3, 'BAD'),
+       (9, 1, 'BAD'),
+       (9, 2, 'GOOD'),
+       (9, 4, 'BAD');
 
 INSERT INTO choice (question_id, text)
 VALUES (3, '0'),

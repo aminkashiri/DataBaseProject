@@ -21,21 +21,24 @@ WHERE ticket.ticket_number = {ticket_number}
     WHERE ticket.ticket_number = {ticket_number}
   )
 
-
 -- Query-2
-SELECT answers.question_id, COUNT(answers.question_id)
-FROM answers
-         INNER JOIN choice ON answers.question_id = choice.question_id
-         INNER JOIN question ON answers.question_id = question.id
-         INNER JOIN survey ON answers.survey_id = survey.id
-         INNER JOIN manager ON survey.manager_username = manager.username
-         INNER JOIN complete ON survey.id = complete.survey_id
-WHERE manager.username = manager_username
+SELECT question.text, answers.value, COUNT(answers.question_id)
+FROM manager
+        INNER JOIN survey on manager.username = survey.manager_username
+        INNER JOIN question ON survey.id = question.survey_id
+        INNER JOIN answers on question.id = answers.question_id
+        -- INNER JOIN complete ON answers.ticket_number = complete.ticket_number
+WHERE manager.username = {manager_username}
   AND question.type = 'MULTIPLE_CHOICE'
-  AND answers.value = question.text
-  AND from_time < complete.time
-  AND to_time > complete.time
-GROUP BY answers.question_id;
+  AND (survey.id, answers.ticket_number) in (
+    SELECT survey.id, complete.ticket_number
+    FROM survey 
+        INNER JOIN complete on survey.id = complete.survey_id
+    WHERE
+        {from_time} < complete.time
+        AND {to_time} > complete.time
+  )
+GROUP BY question.text, answers.value;
 
 -- Query-3
 SELECT answers.ticket_number, answers.question_id, answers.value

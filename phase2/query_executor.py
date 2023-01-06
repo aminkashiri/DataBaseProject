@@ -56,7 +56,7 @@ class QueryExecutor:
         self.cursor.execute(open(init_sql_path, "r").read())
         self.conn.commit()
         return self
-    
+
     def fetchone(self):
         return self.cursor.fetchone()
 
