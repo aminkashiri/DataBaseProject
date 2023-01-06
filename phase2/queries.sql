@@ -16,17 +16,17 @@ WHERE ticket.ticket_number = {ticket_number}
   AND survey.id not in (
     SELECT DISTINCT question.survey_id
     FROM ticket
-            INNER JOIN answers on ticket.ticket_number = answers.ticket_number
-            INNER JOIN question on answers.question_id = question.id
+          INNER JOIN answers on ticket.ticket_number = answers.ticket_number
+          INNER JOIN question on answers.question_id = question.id
     WHERE ticket.ticket_number = {ticket_number}
   )
 
 -- Query-2
 SELECT question.text, answers.value, COUNT(answers.question_id)
 FROM manager
-        INNER JOIN survey on manager.username = survey.manager_username
-        INNER JOIN question ON survey.id = question.survey_id
-        INNER JOIN answers on question.id = answers.question_id
+      INNER JOIN survey on manager.username = survey.manager_username
+      INNER JOIN question ON survey.id = question.survey_id
+      INNER JOIN answers on question.id = answers.question_id
 WHERE manager.username = {manager_username}
   AND question.type = 'MULTIPLE_CHOICE'
   AND (survey.id, answers.ticket_number) in (
@@ -42,9 +42,9 @@ GROUP BY question.text, answers.value;
 -- Query-3
 SELECT answers.ticket_number, answers.question_id, answers.value
 FROM manager
-        INNER JOIN survey on manager.username = survey.manager_username
-        INNER JOIN question ON survey.id = question.survey_id
-        INNER JOIN answers on question.id = answers.question_id
+      INNER JOIN survey on manager.username = survey.manager_username
+      INNER JOIN question ON survey.id = question.survey_id
+      INNER JOIN answers on question.id = answers.question_id
 WHERE question.type = 'DESCRIPTIVE'
   AND manager.username = {manager_username}
   AND answers.value LIKE '%{keyword}%';
@@ -69,18 +69,17 @@ FROM question AS q
 EXCEPT
 SELECT v.question_id, q.text
 FROM question AS q,
-     validates AS v
+    validates AS v
 WHERE q.id = v.question_id;
 
 -- Query-6
-SELECT airline.name, COUNT(complete.ticket_number) AS cnt
+SELECT airline.name, COUNT(complete.ticket_number) AS count
 FROM airline
-         INNER JOIN manager ON airline.name = manager.airline_name
-         INNER JOIN survey ON manager.username = survey.manager_username
-         INNER JOIN complete ON survey.id = complete.survey_id
+        INNER JOIN manager ON airline.name = manager.airline_name
+        INNER JOIN survey ON manager.username = survey.manager_username
+        INNER JOIN complete ON survey.id = complete.survey_id
 GROUP BY airline.name
-ORDER BY cnt
-        DESC;
+ORDER BY count DESC;
 
 -- Query-7
 WITH top_travellers AS
