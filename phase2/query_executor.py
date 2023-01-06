@@ -40,17 +40,25 @@ class QueryExecutor:
             WHERE table_schema = 'public'
         """
         )
-        return self.cursor.fetchall()
+        return self
 
     def print_all_tables(self):
-        for table_name in self.get_table_names():
+        for table_name in self.get_table_names().fetchall():
             self.print_table(table_name[0])
+        return self
 
     def execute_and_commit(self, query):
         self.cursor.execute(query)
         self.conn.commit()
+        return self
 
     def init_db(self, init_sql_path):
         self.cursor.execute(open(init_sql_path, "r").read())
         self.conn.commit()
+        return self
     
+    def fetchone(self):
+        return self.cursor.fetchone()
+
+    def fetchall(self):
+        return self.cursor.fetchall()
