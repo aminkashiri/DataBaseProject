@@ -207,6 +207,9 @@ VALUES (1, 'iran-air', to_timestamp('23 Nov 2022', 'DD Mon YYYY')),
 INSERT INTO ticket (ticket_number, name, family, passport_number, flight_number, "date", seat_number, class, gender, price)
 VALUES (1, 'Norean', 'Kibel', '5085999096', 4, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 42, 'ECONOMY', 'FEMALE', 4428588),
        (2, 'Marcos', 'Spera', '7847067439', 4, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
+       (201, 'Amin', 'Spera', '7847067440', 5, to_timestamp('21 Dec 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
+       (202, 'Amin', 'Spera', '7847067440', 5, to_timestamp('21 Dec 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
+       (203, 'Amin', 'Spera', '7847067440', 5, to_timestamp('21 Dec 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
        (3, 'Raddie', 'Storie', '3072111383', 1, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 10, 'ECONOMY', 'FEMALE', 4592103),
        (4, 'Towney', 'Fussell', '4528681412', 6, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 19, 'BUSINESS', 'FEMALE', 3343923),
        (5, 'Lynnea', 'Gibling', '7535744168', 5, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 27, 'ECONOMY', 'FEMALE', 4612002),
@@ -439,7 +442,11 @@ VALUES (1, 1, 'Excellent'),
     --    (9, 3, 'BAD'),
        (9, 1, 'BAD'),
        (9, 2, 'GOOD'),
-       (9, 4, 'BAD');
+       (9, 4, 'BAD'),
+       (5, 201, 'Awful'),
+       (5, 202, 'Very GOOOOOD'),
+       (5, 203, 'Not bad'),
+       (6, 201, 'KABAB');
 
 INSERT INTO choice (question_id, text)
 VALUES (3, '0'),

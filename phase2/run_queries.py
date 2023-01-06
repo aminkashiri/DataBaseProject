@@ -50,6 +50,16 @@ def get_total_participants():
     print("\n".join(str(x) for x in query_executor.fetchall()))
 
 
+def get_high_usage_passenger_answers(question_id):
+    print("----------------------------- running query 7")
+    query = queries[6].format(question_id=question_id)
+    print(query)
+    query_executor.execute_and_commit(query)
+    print("----")
+    print(query_executor.fetchall())
+    # print("\n".join(str(x) for x in query_executor.fetchall()))
+    print("----")
+
 
 if __name__ == "__main__":
     query_executor = QueryExecutor()
@@ -67,4 +77,6 @@ if __name__ == "__main__":
 
     # get_non_validated_questions()
 
-    get_total_participants()
+    # get_total_participants()
+
+    get_high_usage_passenger_answers(6)
