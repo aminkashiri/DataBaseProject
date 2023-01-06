@@ -127,17 +127,12 @@ CREATE TABLE question
 CREATE TABLE answers
 (
     ticket_number INT,
-    survey_id     INT,
     question_id   INT,
     value         VARCHAR(500),
     CONSTRAINT answers_pk
-        PRIMARY KEY (ticket_number, survey_id, question_id),
+        PRIMARY KEY (ticket_number, question_id),
     FOREIGN KEY (ticket_number)
         REFERENCES ticket (ticket_number)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    FOREIGN KEY (survey_id)
-        REFERENCES survey (id)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY (question_id)
@@ -191,9 +186,9 @@ VALUES ('supervisor-1', 'sup-pass'),
        ('supervisor-2', 'sup-pass');
 
 INSERT INTO survey (id, manager_username, start_time, end_time)
-VALUES (1, 'iran-air-mng', to_timestamp('05 Dec 2022', 'DD Mon YYYY'), to_timestamp('19 Jan 2023', 'DD Mon YYYY')),
+VALUES (1, 'iran-air-mng', to_timestamp('05 Dec 2022', 'DD Mon YYYY'), to_timestamp('20 Dec 2022', 'DD Mon YYYY')),
        (2, 'mahan-mng', to_timestamp('01 Dec 2022', 'DD Mon YYYY'), to_timestamp('20 Dec 2022', 'DD Mon YYYY')),
-       (3, 'iran-air-mng', to_timestamp('21 Dec 2022', 'DD Mon YYYY'), to_timestamp('20 Jan 2023', 'DD Mon YYYY')),
+       (3, 'iran-air-mng', to_timestamp('21 Dec 2022', 'DD Mon YYYY'), to_timestamp('19 Jan 2023', 'DD Mon YYYY')),
        (4, 'mahan-mng', to_timestamp('21 Dec 2022', 'DD Mon YYYY'), to_timestamp('01 Jan 2023', 'DD Mon YYYY'));
 
 INSERT INTO assistant (manager_username, assistant_username, survey_id)
@@ -414,7 +409,7 @@ VALUES (1, 'Norean', 'Kibel', '5085999096', 4, to_timestamp('21 Nov 2022', 'DD M
 INSERT INTO complete (ticket_number, survey_id, "time")
 VALUES (1, 1, now()),
        (2, 1, now()),
-       (3, 1, now()),
+       (3, 1, to_timestamp('10 Dec 2022', 'DD Mon YYYY')),
        (4, 1, now()),
        (5, 2, now()),
        (6, 2, now()),
@@ -431,15 +426,17 @@ VALUES (1, 1, 'Please describe your experience with us.', 'ECONOMY', true, 'DESC
        (5, 4, 'Please describe your experience with us.', 'ECONOMY', true, 'DESCRIPTIVE'),
        (6, 4, 'Which food would you like on your flight?', 'BUSINESS', true, 'DESCRIPTIVE'),
        (7, 4, 'Rate your experience.', 'ECONOMY', true, 'MULTIPLE_CHOICE'),
-       (8, 4, 'Will you be flying with us again?', 'BUSINESS', true, 'MULTIPLE_CHOICE');
+       (8, 4, 'Will you be flying with us again?', 'BUSINESS', true, 'MULTIPLE_CHOICE'),
+       (9, 3, 'Rate the food', 'BUSINESS', true, 'MULTIPLE_CHOICE');
 
-INSERT INTO answers (ticket_number, survey_id, question_id, "value")
-VALUES (1, 1, 1, 'Excellent'),
-       (1, 1, 3, '10'),
-       (1, 1, 2, 'Pizza'),
-       (2, 1, 1, 'Excellent'),
-       (2, 1, 3, '10'),
-       (2, 1, 2, 'Pizza');
+INSERT INTO answers (ticket_number, question_id, "value")
+VALUES (1, 1, 'Excellent'),
+       (1, 3, '10'),
+       (1, 2, 'Pizza'),
+       (2, 1, 'Excellent'),
+       (2, 3, '10'),
+       (2, 2, 'Pizza');
+    --    (3, 9, 'BAD');
 
 INSERT INTO choice (question_id, text)
 VALUES (3, '0'),
@@ -465,9 +462,13 @@ VALUES (3, '0'),
        (7, '9'),
        (7, '10'),
        (8, 'YES'),
-       (8, 'NO');
+       (8, 'NO'),
+       (9, 'BAD'),
+       (9, 'MEDIUM'),
+       (9, 'GOOD');
 
 INSERT INTO validates (question_id, supervisor_username)
 VALUES (1, 'supervisor-1'),
        (2, 'supervisor-1'),
-       (3, 'supervisor-2');
+       (3, 'supervisor-2'),
+       (9, 'supervisor-2');
