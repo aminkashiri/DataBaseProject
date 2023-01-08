@@ -1,62 +1,82 @@
-import psycopg2
+import os
+from query_executor import QueryExecutor
 
-DB_CONFIG = {
-    "dbname": "test_db",
-    "user": "test_user",
-    "password": "test_pass",
-    "host": "localhost",
-    "port": 1777,
-}
+queries_path = "phase2/queries.sql"
+queries = open(queries_path, "r").read().split(os.linesep * 2)
 
 
-class QueryExecutor:
-    def __init__(self, db_config):
-        self.conn = psycopg2.connect(
-            dbname=db_config['dbname'],
-            user=db_config['user'],
-            password=db_config['password'],
-            host=db_config['host'],
-            port=db_config['port']
-        )
-        self.cursor = self.conn.cursor()
-        print('PostgreSQL database version:')
-        self.cursor.execute('SELECT version()')
-        print(self.cursor.fetchone())
-
-    def drop_everything(self):
-        self.execute_and_commit("""
-            DROP SCHEMA public CASCADE;
-            CREATE SCHEMA public;
-        """)
-
-    def print_table(self, table_name):
-        print(table_name)
-        self.cursor.execute(f"SELECT * FROM {table_name};")
-        for row in self.cursor.fetchall():
-            print(row)
-
-    def get_table_names(self):
-        self.cursor.execute("""
-            SELECT table_name FROM information_schema.tables
-            WHERE table_schema = 'public'
-        """)
-        return self.cursor.fetchall()
-
-    def print_all_tables(self):
-        for table_name in self.get_table_names():
-            self.print_table(table_name[0])
-
-    def execute_and_commit(self, query):
-        self.cursor.execute(query)
-        self.conn.commit()
-
-    def init_db(self, init_sql_path):
-        self.cursor.execute(open(init_sql_path, 'r').read())
-        self.conn.commit()
+def get_all_questions(ticket_number, passport_number):
+    print("----------------------------- running query 1")
+    query = queries[0].format(ticket_number=ticket_number)
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
 
 
-if __name__ == '__main__':
-    query_executor = QueryExecutor(DB_CONFIG)
-    query_executor.drop_everything()
-    query_executor.init_db('init_postgres.sql')
-    query_executor.print_all_tables()
+def get_choice_counts(manager_username, from_time, to_time):
+    print("----------------------------- running query 2")
+    query = queries[1].format(
+        manager_username=manager_username, from_time=from_time, to_time=to_time
+    )
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
+
+
+def get_answers_like(manager_username, keyword):
+    print("----------------------------- running query 3")
+    query = queries[2].format(manager_username=manager_username, keyword=keyword)
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
+
+
+def get_mean_of_each_class(manager_username):
+    print("----------------------------- running query 4")
+    query = queries[3].format(manager_username=manager_username)
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
+
+
+def get_non_validated_questions():
+    print("----------------------------- running query 5")
+    query = queries[4].format()
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
+
+
+def get_total_participants():
+    print("----------------------------- running query 6")
+    query = queries[5].format()
+    print(query)
+    query_executor.execute_and_commit(query)
+    print("\n".join(str(x) for x in query_executor.fetchall()))
+
+
+def get_high_usage_passenger_answers(question_id):
+    print("----------------------------- running query 7")
+    query = queries[6].format(question_id=question_id)
+    print(query)
+    query_executor.execute_and_commit(query)
+    print("----")
+    print(query_executor.fetchall())
+    # print("\n".join(str(x) for x in query_executor.fetchall()))
+    print("----")
+
+
+if __name__ == "__main__":
+    query_executor = QueryExecutor()
+    get_all_questions(3, None)
+
+    get_choice_counts(
+        "'iran-air-mng'",
+        "to_timestamp('21 Dec 2020', 'DD Mon YYYY')",
+        "to_timestamp('21 Dec 2030', 'DD Mon YYYY')",
+    )
+
+    get_answers_like("'iran-air-mng'", "Pi")
+
+    get_mean_of_each_class("'iran-air-mng'")
+
+    get_non_validated_questions()
+
+    get_total_participants()
+
+    get_high_usage_passenger_answers(6)
