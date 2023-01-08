@@ -110,6 +110,9 @@ CREATE TABLE complete
         ON UPDATE CASCADE
 );
 
+CREATE INDEX complete_time_index ON complete USING btree (time);
+
+
 CREATE TABLE question
 (
     id           INT PRIMARY KEY,
