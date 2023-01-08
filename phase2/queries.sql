@@ -105,6 +105,7 @@ WHERE question.id = {question_id}
         GROUP BY ticket.passport_number, airline.name
         HAVING SUM(ticket.ticket_number) >= 3
     )
+ORDER BY random();
 -- WITH top_travellers AS
 --          (SELECT ticket.passport_number AS pass_num, COUNT(ticket.ticket_number) 
 --           FROM question
@@ -120,4 +121,3 @@ WHERE question.id = {question_id}
 --          INNER JOIN ticket ON top_travellers.pass_num = ticket.passport_number
 --          INNER JOIN answers ON ticket.ticket_number = answers.ticket_number
 -- WHERE answers.question_id = {question_id}
--- ORDER BY random();
