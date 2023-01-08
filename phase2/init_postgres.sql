@@ -197,21 +197,21 @@ VALUES ('mahan-mng', 'taban-mng', 2),
        ('iran-air-mng', 'mahan-mng', 1);
 
 INSERT INTO flight (flight_number, airline_name, "date")
-VALUES (1, 'iran-air', to_timestamp('23 Nov 2022', 'DD Mon YYYY')),
-       (2, 'mahan', to_timestamp('18 Dec 2022', 'DD Mon YYYY')),
-       (3, 'mahan', to_timestamp('18 Dec 2022', 'DD Mon YYYY')),
-       (4, 'mahan', to_timestamp('18 Dec 2022', 'DD Mon YYYY')),
-       (5, 'mahan', to_timestamp('18 Dec 2022', 'DD Mon YYYY')),
-       (6, 'taban', to_timestamp('21 Nov 2022', 'DD Mon YYYY'));
+VALUES (1, 'iran-air', to_timestamp('23 Nov 2021', 'DD Mon YYYY')),
+       (2, 'mahan', to_timestamp('18 Dec 2021', 'DD Mon YYYY')),
+       (3, 'mahan', to_timestamp('18 Dec 2021', 'DD Mon YYYY')),
+       (4, 'mahan', to_timestamp('18 Dec 2021', 'DD Mon YYYY')),
+       (5, 'mahan', to_timestamp('18 Dec 2021', 'DD Mon YYYY')),
+       (6, 'taban', to_timestamp('21 Nov 2021', 'DD Mon YYYY'));
 
 INSERT INTO ticket (ticket_number, name, family, passport_number, flight_number, "date", seat_number, class, gender, price)
-VALUES (1, 'Norean', 'Kibel', '5085999096', 4, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 42, 'ECONOMY', 'FEMALE', 4428588),
-       (2, 'Marcos', 'Spera', '7847067439', 4, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
+VALUES (1, 'Norean', 'Kibel', '5085999096', 1, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 42, 'ECONOMY', 'FEMALE', 4428588),
+       (2, 'Marcos', 'Spera', '7847067439', 1, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
        (201, 'Amin', 'Spera', '7847067440', 5, to_timestamp('21 Dec 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
        (202, 'Amin', 'Spera', '7847067440', 5, to_timestamp('21 Dec 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
        (203, 'Amin', 'Spera', '7847067440', 5, to_timestamp('21 Dec 2022', 'DD Mon YYYY'), 39, 'ECONOMY', 'FEMALE', 4614771),
        (3, 'Raddie', 'Storie', '3072111383', 1, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 10, 'ECONOMY', 'FEMALE', 4592103),
-       (4, 'Towney', 'Fussell', '4528681412', 6, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 19, 'BUSINESS', 'FEMALE', 3343923),
+       (4, 'Towney', 'Fussell', '4528681412', 1, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 19, 'BUSINESS', 'FEMALE', 3343923),
        (5, 'Lynnea', 'Gibling', '7535744168', 5, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 27, 'ECONOMY', 'FEMALE', 4612002),
        (6, 'Rriocard', 'Rosi', '0639477283', 1, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 79, 'ECONOMY', 'FEMALE', 2648069),
        (7, 'Doyle', 'Rainard', '3356849573', 2, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 28, 'ECONOMY', 'FEMALE', 1520940),
@@ -410,15 +410,15 @@ VALUES (1, 'Norean', 'Kibel', '5085999096', 4, to_timestamp('21 Nov 2022', 'DD M
        (200, 'Alika', 'Tregenna', '2611381283', 5, to_timestamp('21 Nov 2022', 'DD Mon YYYY'), 79, 'ECONOMY', 'MALE', 4996890);
 
 INSERT INTO complete (ticket_number, survey_id, "time")
-VALUES (1, 1, now()),
-       (2, 1, now()),
+VALUES (1, 1, to_timestamp('10 Dec 2022', 'DD Mon YYYY')),
+       (2, 1, to_timestamp('10 Dec 2022', 'DD Mon YYYY')),
        (3, 1, to_timestamp('10 Dec 2022', 'DD Mon YYYY')),
-       (4, 1, now()),
-       (5, 2, now()),
-       (6, 2, now()),
-       (1, 3, now()),
-       (2, 3, now()),
-       (4, 3, now());
+       (4, 1, to_timestamp('10 Dec 2022', 'DD Mon YYYY')),
+       (5, 2, to_timestamp('03 Dec 2022', 'DD Mon YYYY')),
+       (6, 2, to_timestamp('03 Dec 2022', 'DD Mon YYYY')),
+       (1, 3, to_timestamp('23 Dec 2022', 'DD Mon YYYY')),
+       (2, 3, to_timestamp('23 Dec 2022', 'DD Mon YYYY')),
+       (4, 3, to_timestamp('23 Dec 2022', 'DD Mon YYYY'));
 
 INSERT INTO question (id, survey_id, text, class, is_mandatory, type)
 VALUES (1, 1, 'Please describe your experience with us.', 'ECONOMY', true, 'DESCRIPTIVE'),

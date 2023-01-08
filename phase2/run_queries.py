@@ -63,20 +63,20 @@ def get_high_usage_passenger_answers(question_id):
 
 if __name__ == "__main__":
     query_executor = QueryExecutor()
-    # get_all_questions(3, None)
+    get_all_questions(3, None)
 
-    # get_choice_counts(
-    #     "'iran-air-mng'",
-    #     "to_timestamp('21 Dec 2020', 'DD Mon YYYY')",
-    #     "to_timestamp('21 Dec 2030', 'DD Mon YYYY')",
-    # )
+    get_choice_counts(
+        "'iran-air-mng'",
+        "to_timestamp('21 Dec 2020', 'DD Mon YYYY')",
+        "to_timestamp('21 Dec 2030', 'DD Mon YYYY')",
+    )
 
-    # get_answers_like("'iran-air-mng'", "Pi")
+    get_answers_like("'iran-air-mng'", "Pi")
 
-    # get_mean_of_each_class("'iran-air-mng'")
+    get_mean_of_each_class("'iran-air-mng'")
 
-    # get_non_validated_questions()
+    get_non_validated_questions()
 
-    # get_total_participants()
+    get_total_participants()
 
     get_high_usage_passenger_answers(6)
